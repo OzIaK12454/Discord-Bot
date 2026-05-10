@@ -8,7 +8,7 @@ from pyexpat.errors import messages
 import os
 
 # =========================
-# CONFIG
+# CONFIG.
 # =========================
 
 TOKEN = os.getenv("TOKEN")
