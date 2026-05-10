@@ -11,10 +11,9 @@ import os
 # CONFIG
 # =========================
 
-SERVER_ID = os.getenv("SERVER_ID")
 TOKEN = os.getenv("TOKEN")
-#SERVER_ID = 
-#TOKEN = ""
+SERVER_ID = os.getenv("SERVER_ID")
+
 GUILD_ID = discord.Object(id=SERVER_ID)
 
 #print(os.getenv("TOKEN"))
