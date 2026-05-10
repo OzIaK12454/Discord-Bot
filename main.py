@@ -624,10 +624,9 @@ COLORS = {
 @client.tree.command(name="help", description="Centrum Pomocy", guild=GUILD_ID)
 async def help_command(interaction: discord.Interaction):
 
-    description_dc = (
+    description_dc =
         'w chat pisz wiadomości',
         'w costam rob costam',
-    )
 
 
     embed_dc = discord.Embed(
