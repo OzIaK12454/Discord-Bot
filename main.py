@@ -5,13 +5,14 @@ from discord.app_commands import guilds
 from discord.ext import commands
 from discord import app_commands, Embed, message
 from pyexpat.errors import messages
+import os
 
 # =========================
 # CONFIG
 # =========================
 
-SERVER_ID = 1502958511686942802
-TOKEN = "MTUwMjk2NDk1MDA2MTI4NTQ0Ng.G5kdWJ.4u5yOpfF-MjbsRXJkfSbI5hk5h8DtXvKRyu_fg"
+SERVER_ID = os.getenv("SERVER_ID")
+TOKEN = os.getenv("TOKEN")
 
 GUILD_ID = discord.Object(id=SERVER_ID)
 
