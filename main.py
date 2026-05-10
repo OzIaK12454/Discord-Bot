@@ -13,17 +13,14 @@ import os
 
 SERVER_ID = os.getenv("SERVER_ID")
 TOKEN = os.getenv("TOKEN")
+#SERVER_ID = 
+#TOKEN = ""
 GUILD_ID = discord.Object(id=SERVER_ID)
 
-print(os.getenv("TOKEN"))
-
-# logs_channel = discord.utils.get(
-#     interaction.guild.text_channels,
-#     name="logs"
-# )
+#print(os.getenv("TOKEN"))
 
 # =========================
-# BOT
+# BOT, SOCIALVIEV
 # =========================
 
 class Client(commands.Bot):
@@ -521,8 +518,13 @@ class Client(commands.Bot):
 
             await logs.send(embed=embed)
 
+class SocialView(discord.ui.View):
+    def __init__(self):
+        super().__init__()
 
-
+        self.add_item(discord.ui.Button(emoji="🔥", label="Instagram", url="https://www.instagram.com/dlaczegochoruje/", style=discord.ButtonStyle.blurple))
+        self.add_item(discord.ui.Button(emoji="🌐", label="Strona WWW", url="https://dlaczegochoruje.pl/", style=discord.ButtonStyle.blurple))
+        self.add_item(discord.ui.Button(emoji="📸", label="Facebook", url="https://www.facebook.com/dlaczegochoruje", style=discord.ButtonStyle.blurple))
 
 # =========================
 # INTENTS
@@ -620,17 +622,36 @@ COLORS = {
 # =========================
 
 # Help Center
-@client.tree.command(name="help", description="Centrum Pomocy")
-async def help(interaction: discord.Interaction):
+@client.tree.command(name="help", description="Centrum Pomocy", guild=GUILD_ID)
+async def help_command(interaction: discord.Interaction):
 
-    embed = discord.Embed(
-        title="Centrum Pomocy",
-        description="Lista dostępnych komend:",
-        color=discord.Color.light_grey(),
+    description_dc = (
+        'w chat pisz wiadomości',
+        'w costam rob costam',
     )
-    embed.add_field(title="test", value="test", inline=False)
 
-    await interaction.response.send_message(embed=embed)
+
+    embed_dc = discord.Embed(
+        title="Centrum Pomocy",
+        description=description_dc,
+        color=discord.Color(int("52015B", 16))
+    )
+
+    embed_social = discord.Embed(
+        title="Social Media",
+        description="Klikając przyciski przenosisz się na nasze social media!",
+        color=discord.Color(int("52015B", 16))
+    )
+
+    embed_social.add_field(name="testTitle", value="testValue", inline=False)
+
+    view = SocialView()
+
+    await interaction.response.send_message(
+        embeds=[embed_dc, embed_social],
+        view=view,
+        ephemeral=True
+    )
 
 # Reaction Roles
 @client.tree.command(name="colourroles", description="Create a message that lets users pick a colour role", guild=GUILD_ID)
