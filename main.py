@@ -13,8 +13,9 @@ import os
 
 SERVER_ID = os.getenv("SERVER_ID")
 TOKEN = os.getenv("TOKEN")
-print(os.getenv("TOKEN"))
 GUILD_ID = discord.Object(id=SERVER_ID)
+
+print(os.getenv("TOKEN"))
 
 # logs_channel = discord.utils.get(
 #     interaction.guild.text_channels,
