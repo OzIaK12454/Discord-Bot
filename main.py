@@ -8,12 +8,11 @@ from pyexpat.errors import messages
 import os
 
 # =========================
-# CONFIG.
+# CONFIG
 # =========================
 
-TOKEN = os.getenv("TOKEN")
 SERVER_ID = os.getenv("SERVER_ID")
-
+TOKEN = os.getenv("TOKEN")
 GUILD_ID = discord.Object(id=SERVER_ID)
 
 #print(os.getenv("TOKEN"))
@@ -35,6 +34,7 @@ class Client(commands.Bot):
 
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
+        await self.tree.sync()
 
         try:
             synced = await self.tree.sync(guild=GUILD_ID)
@@ -620,13 +620,39 @@ COLORS = {
 # COMMANDS
 # =========================
 
+# Social Media
+@client.tree.command(name="social_media", description="Pokazuje linki do naszych social mediów", guild=GUILD_ID)
+async def social_media(interaction: discord.Interaction):
+
+    KOMENDY_CHANNEL_ID = 1503285040539242557
+
+    if (interaction.channel.id != KOMENDY_CHANNEL_ID and not interaction.user.guild_permissions.administrator):
+        await interaction.response.send_message(
+            f"Tej komendy można używać tylko na kanale <#{KOMENDY_CHANNEL_ID}>",
+            ephemeral=True
+        )
+        return
+
+    embed = discord.Embed(
+        title="Social Media",
+        description="www.dlaczegochoruje.pl",
+        color=discord.Color(int("52015B", 16))
+    )
+
+    await interaction.response.send_message(embed=embed)
+
 # Help Center
 @client.tree.command(name="help", description="Centrum Pomocy", guild=GUILD_ID)
 async def help_command(interaction: discord.Interaction):
+    description_dc = (
+        "📕 <#1502969917912125532> — tutaj są spisane wszystkie zasady panujące na serverze\n\n"
 
-    description_dc =
-        'w chat pisz wiadomości',
-        'w costam rob costam',
+        "❓ <#1502982075995914321> — pomoc głosowa\n\n"
+        
+        "❓ <#1503136267267735632> - pomoc tekstowa\n\n"
+
+        "📢 <#1502969667025764403> — ważne informacje i ogłoszenia\n\n"
+    )
 
 
     embed_dc = discord.Embed(
@@ -650,6 +676,10 @@ async def help_command(interaction: discord.Interaction):
         view=view,
         ephemeral=True
     )
+
+###########################################
+#  COMMANDS WITH ADMIN PERMISSIONS ONLY   #
+###########################################
 
 # Reaction Roles
 @client.tree.command(name="colourroles", description="Create a message that lets users pick a colour role", guild=GUILD_ID)
